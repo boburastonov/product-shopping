@@ -1,12 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import logoImg from '../assets/logo.png'
 
 const Navbar = () => {
   return (
     <header className="flex justify-between items-center px-4 md:px-12 py-2 fixed top-0 w-full z-50 shadow bg-white">
       <Link href={"/"}>
-        <Image src={"/src/assets/Astonov.png"} alt="logo" width={150} height={40} />
+        <Image src={logoImg} alt="logo" width={150} height={40} />
       </Link>
       <div className="flex items-center space-x-2.5 text-sm">
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">

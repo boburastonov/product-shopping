@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import logoImg from '../assets/logo.png'
+import logoImg from "../assets/logo.png";
 
 const Navbar = () => {
   return (
@@ -18,8 +18,11 @@ const Navbar = () => {
             Products
           </Link>
         </nav>
-        <button className="button bg-blue-600 text-white border-transparent hover:border-blue-600 hover:bg-transparent hover:text-black">Login</button>
-        <button className="button bg-transparent text-black border-blue-600 hover:bg-blue-600 hover:text-white">SignUp</button>
+        <Link href={'/shopping-cart'}>
+          <button className="button bg-blue-600 text-white border-transparent hover:border-blue-600 hover:bg-transparent hover:text-black">
+            My Bag
+          </button>
+        </Link>
       </div>
     </header>
   );

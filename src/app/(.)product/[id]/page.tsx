@@ -8,13 +8,38 @@ import { StarIcon } from "@heroicons/react/24/solid";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ReactStars from "react-stars";
+import { toast } from "react-toastify";
 
 const ProductDetailedPage = () => {
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState<ProductType>();
-  const { id } = useParams();
   const [isOpen, setIsOpen] = useState(true);
+  
+  const { id } = useParams();
   const router = useRouter();
+
+  const handleClick = () => {
+    const products: ProductType[] =
+      JSON.parse(localStorage.getItem("carts") as string) || [];
+    const isExistProduct = products.find((c) => c.id == product?.id);
+
+    if (isExistProduct) {
+      const updatedData = products.map((c) => {
+        if (c.id == product?.id) {
+          return {
+            ...c,
+            quantity: c.quantity + 1,
+          };
+        }
+        return c;
+      });
+      localStorage.setItem("carts", JSON.stringify(updatedData));
+    } else {
+      const data = [...products, { ...product, quantity: 1 }];
+      localStorage.setItem("carts", JSON.stringify(data));
+    }
+    toast("Product added to your bag!");
+  };
 
   useEffect(() => {
     async function getData() {
@@ -26,7 +51,6 @@ const ProductDetailedPage = () => {
     }
     getData();
   }, [id]);
-
   return (
     <Dialog
       open={isOpen}
@@ -79,7 +103,10 @@ const ProductDetailedPage = () => {
                               />
                             )
                           )} */}
-                          <ReactStars value={product.rating.rate} edit={false} />
+                          <ReactStars
+                            value={product.rating.rate}
+                            edit={false}
+                          />
                         </div>
                       )}
                       <p className="text-blue-600 hover:underline cursor-pointer text-xs">
@@ -91,7 +118,10 @@ const ProductDetailedPage = () => {
                     </p>
                   </div>
                   <div className="space-y-3 text-sm">
-                    <button className="button w-full bg-blue-600 text-white border-transparent hover:border-blue-600  hover:bg-transparent hover:text-black">
+                    <button
+                      onClick={handleClick}
+                      className="button w-full bg-blue-600 text-white border-transparent hover:border-blue-600  hover:bg-transparent hover:text-black"
+                    >
                       Add to bag
                     </button>
                     <button

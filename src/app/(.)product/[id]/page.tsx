@@ -3,8 +3,6 @@
 import CustomImage from "@/components/image";
 import { ProductType } from "@/interface";
 import { Dialog } from "@headlessui/react";
-import { StarIcon as StarIconOutline } from "@heroicons/react/24/outline";
-import { StarIcon } from "@heroicons/react/24/solid";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ReactStars from "react-stars";
@@ -14,7 +12,7 @@ const ProductDetailedPage = () => {
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState<ProductType>();
   const [isOpen, setIsOpen] = useState(true);
-  
+
   const { id } = useParams();
   const router = useRouter();
 
@@ -85,24 +83,6 @@ const ProductDetailedPage = () => {
                       <p>{product?.rating.rate}</p>
                       {product?.rating.rate && (
                         <div className="flex items-center ml-2 mr-6">
-                          {/* {Array.from(
-                            { length: Math.floor(product.rating.rate) },
-                            (_, i) => (
-                              <StarIcon
-                                key={i}
-                                className="h-4 w-4 text-yellow-500"
-                              />
-                            )
-                          )}
-                          {Array.from(
-                            { length: 5 - Math.floor(product.rating.rate) },
-                            (_, i) => (
-                              <StarIconOutline
-                                key={i}
-                                className="h-4 w-4 text-yellow-500"
-                              />
-                            )
-                          )} */}
                           <ReactStars
                             value={product.rating.rate}
                             edit={false}

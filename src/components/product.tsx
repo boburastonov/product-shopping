@@ -6,7 +6,6 @@ import Link from "next/link";
 import CustomImage from "./image";
 
 const Product: FC<{ product: ProductType }> = ({ product }) => {
-  console.log(product);
   return (
     <Link href={`/product/${product.id}`} className=" flex flex-col p-6 rounded-lg group hover:scale-105 transition-transform ease-out duration-200 border">
       <div className="relative min-h-80 flex-1">

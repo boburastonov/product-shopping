@@ -15,8 +15,12 @@ const ShoppingCart = () => {
 
   const removeProduct = (id: number) => {
     const newProducts = products.filter((product) => product.id !== id);
-    localStorage.setItem("carts", JSON.stringify(newProducts));
-    setProducts(newProducts);
+    useEffect(() => {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("carts", JSON.stringify(newProducts));
+        setProducts(newProducts);
+      }
+    }, []);
   };
 
   const handleIncrement = (id: number) => {
@@ -26,8 +30,12 @@ const ShoppingCart = () => {
       }
       return product;
     });
-    localStorage.setItem("carts", JSON.stringify(newProducts));
-    setProducts(newProducts);
+    useEffect(() => {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("carts", JSON.stringify(newProducts));
+        setProducts(newProducts);
+      }
+    }, []);
   };
 
   const handleDecrement = (id: number) => {
@@ -41,8 +49,12 @@ const ShoppingCart = () => {
         }
         return product;
       });
-      localStorage.setItem("carts", JSON.stringify(newProducts));
-      setProducts(newProducts);
+      useEffect(() => {
+        if (typeof window !== "undefined") {
+          localStorage.setItem("carts", JSON.stringify(newProducts));
+          setProducts(newProducts);
+        }
+      }, []);
     }
   };
 

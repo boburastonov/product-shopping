@@ -40,7 +40,8 @@ const ShoppingCart = () => {
 
   const HandleDecrement = (id: number) => {
     const existProduct = products.find((product) => product.id === id);
-    if (existProduct?.quantity == 1) {
+  
+    if (existProduct?.quantity === 1) {
       RemoveProduct(existProduct.id);
     } else {
       const newProducts = products.map((product) => {
@@ -49,15 +50,15 @@ const ShoppingCart = () => {
         }
         return product;
       });
-      useEffect(() => {
-        if (typeof window !== "undefined") {
-          localStorage.setItem("carts", JSON.stringify(newProducts));
-          setProducts(newProducts);
-        }
-      }, []);
+  
+      // Directly update localStorage and state without useEffect
+      if (typeof window !== "undefined") {
+        localStorage.setItem("carts", JSON.stringify(newProducts));
+      }
+      setProducts(newProducts);
     }
   };
-
+  
   useEffect(() => {
     const newTotal = products.reduce(
       (acc, item) => acc + item.price * item.quantity,

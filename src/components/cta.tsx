@@ -46,7 +46,7 @@ const Cta = () => {
             Button
           </button>
           <p className="text-xs text-gray-500 mt-3">
-            Literally you probably haven't heard of them jean shorts.
+            Literally you probably haven&#39;t heard of them jean shorts.
           </p>
         </div>
       </div>

@@ -13,7 +13,7 @@ const ShoppingCart = () => {
     JSON.parse(localStorage.getItem("carts") as string) || []
   );
 
-  const removeProduct = (id: number) => {
+  const RemoveProduct = (id: number) => {
     const newProducts = products.filter((product) => product.id !== id);
     useEffect(() => {
       if (typeof window !== "undefined") {
@@ -23,7 +23,7 @@ const ShoppingCart = () => {
     }, []);
   };
 
-  const handleIncrement = (id: number) => {
+  const HandleIncrement = (id: number) => {
     const newProducts = products.map((product) => {
       if (product.id === id) {
         return { ...product, quantity: product.quantity + 1 };
@@ -38,10 +38,10 @@ const ShoppingCart = () => {
     }, []);
   };
 
-  const handleDecrement = (id: number) => {
+  const HandleDecrement = (id: number) => {
     const existProduct = products.find((product) => product.id === id);
     if (existProduct?.quantity == 1) {
-      removeProduct(existProduct.id);
+      RemoveProduct(existProduct.id);
     } else {
       const newProducts = products.map((product) => {
         if (product.id === id) {
@@ -122,7 +122,7 @@ const ShoppingCart = () => {
                       <div className="flex items-center border-gray-100">
                         <span
                           className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                          onClick={() => handleDecrement(product.id)}
+                          onClick={() => HandleDecrement(product.id)}
                         >
                           {" "}
                           -{" "}
@@ -135,7 +135,7 @@ const ShoppingCart = () => {
                         />
                         <span
                           className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                          onClick={() => handleIncrement(product.id)}
+                          onClick={() => HandleIncrement(product.id)}
                         >
                           {" "}
                           +{" "}
@@ -158,7 +158,7 @@ const ShoppingCart = () => {
                           stroke-width="1.5"
                           stroke="currentColor"
                           className="h-5 w-5 cursor-pointer duration-150 hover:text-red-500"
-                          onClick={() => removeProduct(product.id)}
+                          onClick={() => RemoveProduct(product.id)}
                         >
                           <path
                             stroke-linecap="round"

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import React from 'react'
 
 const Statistics = () => {
@@ -27,7 +28,7 @@ const Statistics = () => {
       </div>
     </div>
     <div className="lg:w-1/2 sm:w-1/3 w-full rounded-lg overflow-hidden mt-6 sm:mt-0">
-      <img className="object-cover object-center w-full h-full" src="https://dummyimage.com/600x300" alt="stats" />
+      <Image className="object-cover object-center w-full h-full" src="https://dummyimage.com/600x300" alt="stats" width={600} height={300} />
     </div>
   </div>
 </section>

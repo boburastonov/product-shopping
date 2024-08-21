@@ -1,26 +1,32 @@
+ 
 "use client";
 
 import CustomImage from "@/components/image";
 import { ProductType } from "@/interface";
 import { StarIcon as StarIconOutline } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/24/solid";
-import Link from "next/link";
+import Link from "next/link"; 
 import { useState, useEffect } from "react";
 
 const ShoppingCart = () => {
   const [total, setTotal] = useState<number>(0);
-  const [products, setProducts] = useState<ProductType[]>(
-    JSON.parse(localStorage.getItem("carts") as string) || []
-  );
+  const [products, setProducts] = useState<ProductType[]>(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(localStorage.getItem("carts") as string) || [];
+    }
+    return [];
+  });
+
+  const updateCart = (newProducts: ProductType[]) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("carts", JSON.stringify(newProducts));
+    }
+    setProducts(newProducts);
+  };
 
   const RemoveProduct = (id: number) => {
     const newProducts = products.filter((product) => product.id !== id);
-    useEffect(() => {
-      if (typeof window !== "undefined") {
-        localStorage.setItem("carts", JSON.stringify(newProducts));
-        setProducts(newProducts);
-      }
-    }, []);
+    updateCart(newProducts);
   };
 
   const HandleIncrement = (id: number) => {
@@ -30,17 +36,11 @@ const ShoppingCart = () => {
       }
       return product;
     });
-    useEffect(() => {
-      if (typeof window !== "undefined") {
-        localStorage.setItem("carts", JSON.stringify(newProducts));
-        setProducts(newProducts);
-      }
-    }, []);
+    updateCart(newProducts);
   };
 
   const HandleDecrement = (id: number) => {
     const existProduct = products.find((product) => product.id === id);
-  
     if (existProduct?.quantity === 1) {
       RemoveProduct(existProduct.id);
     } else {
@@ -50,15 +50,10 @@ const ShoppingCart = () => {
         }
         return product;
       });
-  
-      // Directly update localStorage and state without useEffect
-      if (typeof window !== "undefined") {
-        localStorage.setItem("carts", JSON.stringify(newProducts));
-      }
-      setProducts(newProducts);
+      updateCart(newProducts);
     }
   };
-  
+
   useEffect(() => {
     const newTotal = products.reduce(
       (acc, item) => acc + item.price * item.quantity,
